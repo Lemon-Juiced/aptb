@@ -4,14 +4,18 @@ TARGET = aptb
 
 SRCS = aptb.c coloro.c
 OBJS = $(SRCS:.c=.o)
+BINDIR = bin
 
-all: $(TARGET)
+all: $(BINDIR)/$(TARGET)
 
-$(TARGET): $(OBJS)
+$(BINDIR)/$(TARGET): $(OBJS) | $(BINDIR)
 	$(CC) $(CFLAGS) -o $@ $^
 
 %.o: %.c coloro.h
 	$(CC) $(CFLAGS) -c $<
 
+$(BINDIR):
+	mkdir -p $(BINDIR)
+
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -f $(OBJS) $(BINDIR)/$(TARGET)
