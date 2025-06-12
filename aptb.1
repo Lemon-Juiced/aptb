@@ -1,0 +1,63 @@
+.TH APTB 1 "June 2025" "aptb 1.0" "User Commands"
+.SH NAME
+aptb \- Apt Bundle, a wrapper for the apt package manager
+.SH SYNOPSIS
+.B aptb
+<verb> [parameters...]
+.SH DESCRIPTION
+.B aptb
+is a wrapper for the \fBapt\fR package manager, bundling several commonly used commands into a single, convenient interface.
+
+.SH COMMANDS
+.TP
+.B delete
+Deletes the provided packages. Runs \fBapt remove\fR, \fBapt purge\fR, and \fBapt autoremove\fR on the specified packages.
+.br
+Parameter limit: Limited* (see below)
+.br
+Parameters: The packages being targeted.
+
+.TP
+.B li, list-installed
+Lists all installed packages. Runs \fBapt list --installed\fR.
+.br
+Parameter limit: 0
+
+.TP
+.B lis, list-installed-search
+Searches installed packages by term. Runs \fBapt list --installed\fR and filters results using \fBgrep <search_term>\fR.
+.br
+Parameter limit: 1
+.br
+Parameters: The search term to filter on.
+
+.PP
+*The limit for \fBdelete\fR is 512 bytes (arbitrary; users will likely never reach this).
+
+.SH EXAMPLES
+.TP
+Delete packages:
+.nf
+  aptb delete <package1> <package2>
+.fi
+
+.TP
+List installed packages:
+.nf
+  aptb li
+  aptb list-installed
+.fi
+
+.TP
+Search installed packages:
+.nf
+  aptb lis <package>
+  aptb list-installed-search <package>
+.fi
+
+.SH AUTHOR
+Lemon
+
+.SH SEE ALSO
+.BR apt (8), 
+.BR apt-get (8)
